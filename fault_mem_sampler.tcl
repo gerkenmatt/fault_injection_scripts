@@ -159,6 +159,7 @@ proc fault_inject {nInj} {
 		#fault injected here, put fliped value back in mem
 		#echo "INJ_DATA: $inj_data"
 		mww $inj_addr $inj_data 8
+		echo "FAULT INJECTED: resuming execution"
 		resume
 		sleep $results_wait
 		halt

@@ -47,12 +47,25 @@ try:
     print(heap_err)
 
     addrs = []
+    tims = []
     errs = []
     for val in heap_err:
+        print val
         errs.append(val[0][0])
         addrs.append(val[1])
+        tims.append(val[2])
 
-    plt.plot(addrErrs, 'r.')
+    print tims
+    err_plot = plt.figure(1)
+    plt.plot(addrErrs, 'r')
+
+    tim_plot = plt.figure(2)
+    plt.plot(tims, errs, 'b.')
+
+    addr_plot = plt.figure(3)
+    plt.plot(addrs, errs,  'g.')
+
+
     # plt.plot(addrs, errs, 'r.')
     plt.show()
 

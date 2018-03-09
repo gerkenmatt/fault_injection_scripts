@@ -5,7 +5,7 @@ vector_size = 1000;
 #boundaries of SRAM memory to inject
 #including floor and ceiling for now to avoid having too much empty space
 start_addr = 536870912 #0x20000000
-end_addr = 537067505 #0x20030000
+end_addr = 537067519 - 25 #0x20030000
 # start_ceiling = start_addr + 7000
 start_ceiling = start_addr + 4000 
 end_floor = end_addr - 100 #area of the stack to inject in
@@ -17,6 +17,10 @@ addr_count = 0
 start_period = 10
 end_period = 24500
 some_period = 5000
+
+limit_addrs = True
+some_addr = 536871560
+some_addr_range = 400
 
 #boundaries of seed
 start_seed = 0
@@ -43,11 +47,17 @@ period_file = open("vector_period.txt", "w")
 seed_file = open("vector_seed.txt", "w")
 bit_file = open("vector_bit.txt", "w") 
 
-while addr_count < vector_size:
-	addr = randint(start_addr, end_addr)
-	# addr_file.write(hex(addr) + '\n')
-	# addr_count = addr_count + 1
-	if addr < start_ceiling or addr > end_floor:
+if not limit_addrs: 
+	while addr_count < vector_size:
+		addr = randint(start_addr, end_addr)
+		# addr_file.write(hex(addr) + '\n')
+		# addr_count = addr_count + 1
+		if addr < start_ceiling or addr > end_floor:
+			addr_file.write(hex(addr) + '\n')
+			addr_count = addr_count + 1
+else: 
+	while addr_count < vector_size:
+		addr = randint(some_addr, some_addr + some_addr_range)
 		addr_file.write(hex(addr) + '\n')
 		addr_count = addr_count + 1
 
